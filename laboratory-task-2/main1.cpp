@@ -1,11 +1,12 @@
 /*
-Нет доступа к условию.
+1. проверяет, различны ли цифры в записи числа (массив и строки не использовать)
 */
 
 #include <iostream>
 
-int32_t getNumber(int32_t num)
+int32_t getNumber()
 {
+	int32_t num;
 	std::cout << "Input number:\n";
 	std::cin >> num;
 	if (num <= 0)
@@ -15,32 +16,31 @@ int32_t getNumber(int32_t num)
 	return num;
 }
 
-bool findReappearingDigits(int32_t num, int32_t temp, int32_t cnt, bool dubl)
+bool findReappearingDigits(int32_t num)
 {
+	int32_t cnt;
 	for (size_t i = 0; i <= 9; i++)
 	{
-		temp = num;
 		cnt = 0;
-		while (temp != 0)
+		while (num != 0)
 		{
-			if (temp % 10 == i)
+			if (num % 10 == i)
 			{
 				cnt++;
 			}
-			temp /= 10;
+			num /= 10;
 		}
 		if (cnt >= 2)
 		{
-			dubl = true;
-			break;
+			return true;
 		}
 	}
-	return dubl;
+	return false;
 }
 
 void output(bool dubl)
 {
-	if (dubl == true)
+	if (dubl)
 	{
 		std::cout << "There are duplicates.";
 	}
@@ -52,12 +52,12 @@ void output(bool dubl)
 
 int main()
 {
-	int32_t num, temp, cnt = 0;
-	bool dubl = false;
+	int32_t num = 0;
+	bool dubl;
 	try
 	{
-		num = getNumber(num);
-		dubl = findReappearingDigits(num, temp, cnt, dubl);
+		num = getNumber();
+		dubl = findReappearingDigits(num);
 		output(dubl);
 	}
 	catch (std::exception e)
