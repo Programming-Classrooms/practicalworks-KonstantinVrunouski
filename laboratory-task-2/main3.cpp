@@ -1,11 +1,6 @@
-/*
-Нет доступа к условию.
-*/
+#include <iostream> 
 
-#include <iostream>
-
-
-int32_t getNumber()
+int32_t get_number()
 {
     int32_t num;
     std::cout << "Enter natural number:\n";
@@ -25,7 +20,7 @@ int32_t factorial(int32_t factor) {
     return res;
 }
 
-void fractOut(int32_t num, int32_t denominator)
+void fract_out(int32_t num, int32_t denominator)
 {
     for (size_t j = denominator; j > 2; --j)
     {
