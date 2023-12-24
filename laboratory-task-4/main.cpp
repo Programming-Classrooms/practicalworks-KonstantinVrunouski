@@ -11,7 +11,8 @@
 #include <iostream>
 #include <iomanip>
 
-size_t get_mtrx_size()
+
+size_t inputMtrxSize()
 {
 	size_t size;
 	std::cout << "Input size of the matrix:\n";
@@ -19,7 +20,7 @@ size_t get_mtrx_size()
 	return size;
 }
 
-void declare_mtrx(int32_t**& mtrx, size_t size)
+void allocateMemoryForMtrx(int32_t**& mtrx, size_t size)
 {
 	mtrx = new int32_t * [size];
 	for (size_t i = 0; i < size; ++i)
@@ -28,19 +29,19 @@ void declare_mtrx(int32_t**& mtrx, size_t size)
 	}
 }
 
-int32_t input_type()
+int32_t inputType()
 {
 	std::cout << "How'd you like to input elements:\n1)Manually.\t2)Randomly.\n";
-	int32_t in_type;
-	std::cin >> in_type;
-	if (in_type != 1 && in_type != 2)
+	int32_t inType;
+	std::cin >> inType;
+	if (inType != 1 && inType != 2)
 	{
 		throw std::exception("Invalid choice.");
 	}
-	return in_type;
+	return inType;
 }
 
-void fill_mtrx_man(int32_t** mtrx, size_t size)
+void mtrxFillManual(int32_t** mtrx, size_t size)
 {
 	std::cout << "Input elements of the matrix:\n";
 	for (size_t i = 0; i < size; ++i)
@@ -48,26 +49,26 @@ void fill_mtrx_man(int32_t** mtrx, size_t size)
 			std::cin >> mtrx[i][j];
 }
 
-void get_borders(int32_t& l_bord, int32_t& r_bord)
+void inputBorders(int32_t& lBord, int32_t& rBord)
 {
 	std::cout << "Input left and right border of random:\n";
-	std::cin >> l_bord >> r_bord;
-	if (l_bord > r_bord)
-		std::swap(l_bord, r_bord);
+	std::cin >> lBord >> rBord;
+	if (lBord > rBord)
+		std::swap(lBord, rBord);
 }
 
-void fill_mtrx_rand(int32_t** mtrx, size_t size)
+void mtrxFillRandomly(int32_t** mtrx, size_t size)
 {
-	int32_t l_bord, r_bord;
-	get_borders(l_bord, r_bord);
+	int32_t lBord, rBord;
+	inputBorders(lBord, rBord);
 	for (size_t i = 0; i < size; ++i)
 		for (size_t j = 0; j < size; ++j)
-			mtrx[i][j] = l_bord + rand() % (r_bord - l_bord + 1);
+			mtrx[i][j] = lBord + rand() % (rBord - lBord + 1);
 }
 
-void mtrx_out(int32_t** mtrx, size_t size)
+void printMtrx(int32_t** mtrx, size_t size, const char* message = "Generated matrix:")
 {
-	std::cout << "Generated matrix:\n";
+	std::cout << message << '\n';
 	for (size_t i = 0; i < size; ++i)
 	{
 		for (size_t j = 0; j < size; ++j)
@@ -78,33 +79,33 @@ void mtrx_out(int32_t** mtrx, size_t size)
 	}
 }
 
-void mem_cleanse(int32_t**& mtrx, size_t size)
+void cleanMemory(int32_t**& mtrx, size_t size)
 {
 	for (size_t i = 0; i < size; ++i)
 		delete[] mtrx[i];
 	delete[] mtrx;
 }
 
-bool find_positive_in_col(int32_t** mtrx, size_t size, size_t col)
+bool isPositiveElementInColumn(int32_t** mtrx, size_t size, size_t col)
 {
-	bool is_pos = false;
+	bool isPositiveElements = false;
 	for (size_t i = 0; i < size; ++i)
 	{
 		if (mtrx[i][col] > 0)
 		{
-			is_pos = true;
+			isPositiveElements = true;
 			break;
 		}
 	}
-	return is_pos;
+	return isPositiveElements;
 }
 
-int32_t max_el_col(int32_t** mtrx, size_t size)
+int32_t maxElementInColumn(int32_t** mtrx, size_t size)
 {
 	int32_t max = INT32_MIN;
 	for (size_t i = 0; i < size; ++i)
 	{
-		if (!find_positive_in_col(mtrx, size, i))
+		if (!isPositiveElementInColumn(mtrx, size, i))
 		{
 			for (size_t j = 0; j < size; ++j)
 			{
@@ -116,19 +117,7 @@ int32_t max_el_col(int32_t** mtrx, size_t size)
 	return max;
 }
 
-void out(int32_t max, size_t cnt)
-{
-	if (max == INT32_MIN)
-		std::cout << "There is no maximum element, that satisfies condition.\n";
-	else
-		std::cout << "Maximum element is " << max << ".\n";
-	if (cnt != 0)
-		std::cout << "Count of negative elements in right down triangle: " << cnt << ".\n";
-	else
-		std::cout << "There are no negative elements in right down triangle.\n";
-}
-
-size_t cnt_neg_el_low_rgt_triangle(int32_t** mtrx, size_t size)
+size_t countNegativeElementsInLowRightTriangle(int32_t** mtrx, size_t size)
 {
 	size_t k = 0, cnt = 0;
 	for (int32_t i = size - 1; i >= 0; --i)
@@ -145,6 +134,18 @@ size_t cnt_neg_el_low_rgt_triangle(int32_t** mtrx, size_t size)
 	return cnt;
 }
 
+void print(int32_t max, size_t cnt)
+{
+	if (max == INT32_MIN)
+		std::cout << "There is no maximum element, that satisfies condition.\n";
+	else
+		std::cout << "Maximum element is " << max << ".\n";
+	if (cnt != 0)
+		std::cout << "Count of negative elements in right down triangle: " << cnt << ".\n";
+	else
+		std::cout << "There are no negative elements in right down triangle.\n";
+}
+
 int main()
 {
 	srand(time(NULL));
@@ -152,29 +153,29 @@ int main()
 	size_t size;
 	try
 	{
-		size = get_mtrx_size();
-		declare_mtrx(mtrx, size);
+		size = inputMtrxSize();
+		allocateMemoryForMtrx(mtrx, size);
 
-		int32_t in_type = input_type();
+		int32_t in_type = inputType();
 		if (in_type == 1)
-			fill_mtrx_man(mtrx, size);
+			mtrxFillManual(mtrx, size);
 		else
-			fill_mtrx_rand(mtrx, size);
+			mtrxFillRandomly(mtrx, size);
 
-		int32_t max = max_el_col(mtrx, size);
+		int32_t max = maxElementInColumn(mtrx, size);
 		
-		size_t cnt = cnt_neg_el_low_rgt_triangle(mtrx, size);
+		size_t cnt = countNegativeElementsInLowRightTriangle(mtrx, size);
 		
 		if (in_type != 1)
-			mtrx_out(mtrx, size);
+			printMtrx(mtrx, size);
 		
-		out(max,cnt);
-		mem_cleanse(mtrx, size);
+		print(max,cnt);
+		cleanMemory(mtrx, size);
 	}
 	catch (std::exception e)
 	{
 		std::cout << "An exception occurred: " << e.what();
-		mem_cleanse(mtrx, size);
+		cleanMemory(mtrx, size);
 	}
 	return 0;
 }
