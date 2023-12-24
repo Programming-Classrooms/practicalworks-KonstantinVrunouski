@@ -20,8 +20,7 @@ size_t inputSize(const char* message = "Elements quantity:")
 	size_t size = 0;
 	std::cout << message << '\n';
 	std::cin >> size;
-	if (size <= 0)
-	{
+	if (size <= 0){
 		throw "Invalid quantity.";
 	}
 	return size;
@@ -41,8 +40,7 @@ bool inputType(const char * message = "Input manually or randomly?\n0) Manual; 1
 void inputArrayManual(int32_t* arr, size_t size)
 {
 	std::cout << "Input elements:\n";
-	for (int i = 0; i < size; ++i)
-	{
+	for (int i = 0; i < size; ++i){
 		std::cin >> arr[i];
 	}
 }
@@ -52,8 +50,7 @@ void inputArrayRandom(int32_t* arr, size_t size)
 	size_t lBord, rBord;
 	std::cout << "Input range of random numbers:\n";
 	std::cin >> lBord >> rBord;
-	for (size_t i = 0; i < size; ++i)
-	{
+	for (size_t i = 0; i < size; ++i){
 		arr[i] = lBord + rand() % (rBord - lBord + 1);
 	}
 }
@@ -63,10 +60,8 @@ size_t findingMaxNumIndex(int32_t* arr, size_t size)
 {
 	int32_t maxNum = arr[0]; 
 	size_t maxNumIndex = 0;
-	for (int i = 0; i < size; ++i)
-	{
-		if (arr[i] > maxNum)
-		{
+	for (int i = 0; i < size; ++i){
+		if (arr[i] > maxNum){
 			maxNum = arr[i];
 			maxNumIndex = i;
 		}
@@ -77,8 +72,7 @@ size_t findingMaxNumIndex(int32_t* arr, size_t size)
 int32_t calcMultiplicationResult(int32_t* arr, size_t size, size_t maxNumIndex)
 {
 	double multiplicationResult = 1;
-	for (size_t i = maxNumIndex + 1; i < size; ++i)
-	{
+	for (size_t i = maxNumIndex + 1; i < size; ++i){
 		multiplicationResult *= arr[i];
 	}
 	return multiplicationResult;
@@ -88,23 +82,24 @@ size_t countDistinct(int32_t* arr, size_t n)
 {
 	size_t counter = 1;
 
-	for (size_t i = 1; i < n; ++i) {
+	for (size_t i = 1; i < n; ++i){
 		size_t j = 0;
-		for (j = 0; j < i; ++j)
-			if (arr[i] == arr[j])
+		for (j = 0; j < i; ++j){
+			if (arr[i] == arr[j]){
 				break;
-
-		if (i == j)
+			}
+		}
+		if (i == j){
 			counter++;
+		}
 	}
 	return counter;
 }
 
 void printArray(int32_t* arr, int32_t size)
 {
-	std::cout << "Starting array:\n";
-	for (size_t i = 0; i < size; ++i)
-	{
+	std::cout << "Starting array:" << '\n';
+	for (size_t i = 0; i < size; ++i){
 		std::cout << arr[i] << ' ';
 	}
 	return;
@@ -114,17 +109,18 @@ void selectionSort(int32_t* arr, size_t n)
 {
     size_t i, j, minInd;
  
-    for (i = 0; i < n - 1; i++) {
+    for (i = 0; i < n - 1; i++){
  
         minInd = i;
-        for (j = i + 1; j < n; j++) {
+        for (j = i + 1; j < n; j++){
             if (arr[j] < arr[minInd])
                 minInd = j;
         }
  
-        if (minInd != i)
+        if (minInd != i){
             std::swap(arr[minInd], arr[i]);
-    }
+		}
+	}
 }
 
 void print(int32_t* arr, size_t size, size_t maxNumIndex, int32_t multiplicationResult)
