@@ -10,17 +10,21 @@
 int32_t inputNumber(const char * message = "Input number:")
 {
 	int32_t num;
+	
 	std::cout << message << '\n';
 	std::cin >> num;
+	
 	if (num <= 0){
 		throw "Not a natural number.";
 	}
+
 	return num;
 }
 
 bool isReappearingDigits(int32_t num)
 {
 	int32_t cnt;
+
 	for (size_t i = 0; i <= 9; ++i){
 		cnt = 0;
 		while (num != 0){
@@ -33,6 +37,7 @@ bool isReappearingDigits(int32_t num)
 			return true;
 		}
 	}
+
 	return false;
 }
 
@@ -40,9 +45,11 @@ int main()
 {
 	int32_t num = 0;
 	bool dubl;
+
 	try{
 		num = inputNumber();
 		dubl = isReappearingDigits(num);
+		
 		if(dubl){
 			std::cout << "There are duplicates.";
 		}
@@ -53,5 +60,6 @@ int main()
 	catch(const char* e){
 		std::cout << e;
 	}
+
 	return 0;
 }
