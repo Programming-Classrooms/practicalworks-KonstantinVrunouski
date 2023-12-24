@@ -7,10 +7,10 @@
 #include <iostream>
 
 
-int32_t getNumber()
+int32_t inputNumber(const char * message = "Input number:")
 {
 	int32_t num;
-	std::cout << "Input number:\n";
+	std::cout << message << '\n';
 	std::cin >> num;
 	if (num <= 0){
 		throw "Not a natural number.";
@@ -18,10 +18,10 @@ int32_t getNumber()
 	return num;
 }
 
-bool findReappearingDigits(int32_t num)
+bool isReappearingDigits(int32_t num)
 {
 	int32_t cnt;
-	for (size_t i = 0; i <= 9; i++){
+	for (size_t i = 0; i <= 9; ++i){
 		cnt = 0;
 		while (num != 0){
 			if (num % 10 == i){
@@ -36,27 +36,20 @@ bool findReappearingDigits(int32_t num)
 	return false;
 }
 
-void output(bool dubl)
-{
-	if (dubl)
-    {
-		std::cout << "There are duplicates.";
-	}
-	else
-    {
-		std::cout << "There are no duplicates.";
-	}
-}
-
 int main()
 {
 	int32_t num = 0;
 	bool dubl;
 	try
 	{
-		num = getNumber();
-		dubl = findReappearingDigits(num);
-		output(dubl);
+		num = inputNumber();
+		dubl = isReappearingDigits(num);
+		if(dubl){
+			std::cout << "There are duplicates.";
+		}
+		else{
+			std::cout << "There are no duplicates.";
+		}
 	}
 	catch(const char* e)
 	{
