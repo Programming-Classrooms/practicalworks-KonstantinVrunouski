@@ -8,10 +8,10 @@
 #include <iostream>
 
 
-int32_t get_number()
+int32_t inputNumber(const char* message = "Enter natural number:")
 {
     int32_t num;
-    std::cout << "Enter natural number:\n";
+    std::cout << message << '\n';
     std::cin >> num;
     if (num <= 0)
     {
@@ -20,32 +20,34 @@ int32_t get_number()
     return num;
 }
 
-int32_t factorial(int32_t factor) {
-    int32_t res = 1;
-    for (size_t i = 1; i <= factor; i++) {
-        res *= i;
+int32_t factorial(int32_t factor) 
+{
+    int32_t result = 1;
+    for (size_t i = 1; i <= factor; i++) 
+    {
+        result *= i;
     }
-    return res;
+    return result;
 }
 
-void fract_out(int32_t num, int32_t denominator)
+void fractPrint(int32_t num, int32_t denominator)
 {
     for (size_t j = denominator; j > 2; --j)
     {
         int32_t numerator = denominator - j;
-        int32_t temp_denominator = denominator;
+        int32_t tempDenominator = denominator;
 
         for (size_t i = denominator; i >= 1; --i)
         {
-            if (temp_denominator % i == 0 && numerator % i == 0)
+            if (tempDenominator % i == 0 && numerator % i == 0)
             {
                 numerator /= i;
-                temp_denominator /= i;
+                tempDenominator /= i;
             }
         }
-        if (temp_denominator <= num && numerator != 0)
+        if (tempDenominator <= num && numerator != 0)
         {
-            std::cout << numerator << '/' << temp_denominator << '\t';
+            std::cout << numerator << '/' << tempDenominator << '\t';
         }
     }
 }
@@ -54,13 +56,13 @@ int main()
 {
     try
     {
-        int32_t num = get_number();
+        int32_t num = inputNumber();
         int32_t denominator = factorial(num);
-        fract_out(num, denominator);
+        fractPrint(num, denominator);
     }
-    catch (std::exception e)
+    catch (const char* e)
     {
-        std::cout << e.what();
+        std::cout << e;
     }
     return 0;
 }
