@@ -36,7 +36,7 @@ int32_t inputType()
 	std::cin >> inType;
 	if (inType != 1 && inType != 2)
 	{
-		throw std::exception("Invalid choice.");
+		throw "Invalid choice.";
 	}
 	return inType;
 }
@@ -172,9 +172,9 @@ int main()
 		print(max,cnt);
 		cleanMemory(mtrx, size);
 	}
-	catch (std::exception e)
+	catch (const char* e)
 	{
-		std::cout << "An exception occurred: " << e.what();
+		std::cout << e;
 		cleanMemory(mtrx, size);
 	}
 	return 0;
