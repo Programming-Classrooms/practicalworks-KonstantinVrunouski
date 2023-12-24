@@ -74,7 +74,7 @@ void printMtrx(int32_t** mtrx, size_t size, const char* message = "Generated mat
 	std::cout << message << '\n';
 	for (size_t i = 0; i < size; ++i){
 		for (size_t j = 0; j < size; ++j){
-			std::cout << std::setw(5) << mtrx[i][j] << '\t';
+			std::cout << std::setw(10) << mtrx[i][j];
 		}
 		std::cout << '\n';
 	}
