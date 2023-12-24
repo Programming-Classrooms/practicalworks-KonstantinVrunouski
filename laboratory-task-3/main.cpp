@@ -1,12 +1,13 @@
 /*
 	Вариант 18
-В одномерном массиве, состоящем из п целых элементов, вычислить:
-- количество различных элементов.
-- произведение элементов массива, расположенных после максимального по модулю
-элемента.
-Преобразовать массив таким образом, чтобы сначала располагались все отрицательные
-элементы, а потом — все положительные (элементы, равные 0, считать положительными).
+	В одномерном массиве, состоящем из п целых элементов, вычислить:
+	- количество различных элементов.
+	- произведение элементов массива, расположенных после максимального по модулю
+	элемента.
+	Преобразовать массив таким образом, чтобы сначала располагались все отрицательные
+	элементы, а потом — все положительные (элементы, равные 0, считать положительными).
 */
+
 
 #include <iostream>
 #include <cstdlib>
@@ -21,7 +22,7 @@ int32_t gettingSize()
 	std::cin >> size;
 	if (size <= 0)
 	{
-		throw std::exception("Invalid quantity.");
+		throw "Invalid quantity.";
 	}
 	return size;
 }
@@ -53,9 +54,7 @@ int32_t* inputArrayRandom(int32_t size)
 	std::cin >> lBord >> rBord;
 	if (lBord > rBord)
 	{
-		lBord = lBord ^ rBord;
-		rBord = lBord ^ rBord;
-		lBord = lBord ^ rBord;
+		std::swap(lBord, rBord);
 	}
 	for (size_t i = 0; i < size; ++i)
 	{
@@ -77,7 +76,7 @@ int32_t findingMaxIndex(int32_t* arr, int32_t size)
 		}
 	}
 	if (maxNumIndex == arr[size-1])
-		throw std::exception("There's no multiplication.");
+		throw "There's no multiplication.";
 	return maxNumIndex;
 }
 
@@ -181,9 +180,9 @@ int main()
 
 		delete[] arr;
 	}
-	catch(std::exception e)
+	catch(const char* e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cout << e << '\n';
 	}
 	return 0;
 }
