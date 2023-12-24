@@ -98,13 +98,18 @@ bool isPositiveElementInColumn(int32_t** mtrx, size_t size, size_t col)
 	return false;
 }
 
-int32_t maxElementInColumn(int32_t** mtrx, size_t size)
+int32_t maxElementInColumns(int32_t** mtrx, size_t size, bool& isMaxElementExist)
 {
-	int32_t max = INT32_MIN;
+	int32_t max = { 0 };
 	for (size_t i = 0; i < size; ++i){
 		if (!isPositiveElementInColumn(mtrx, size, i)){
 			for (size_t j = 0; j < size; ++j){
-				if (mtrx[j][i] > max){
+				if (!isMaxElementExist){
+					max = mtrx[j][i];
+					isMaxElementExist = true;
+				}
+				else if (max < mtrx[j][i])
+				{
 					max = mtrx[j][i];
 				}
 			}
@@ -116,7 +121,7 @@ int32_t maxElementInColumn(int32_t** mtrx, size_t size)
 size_t countNegativeElementsInLowRightTriangle(int32_t** mtrx, size_t size)
 {
 	size_t k = 0, cnt = 0;
-	for (size_t i = size - 1; i >= 0; --i){
+	for (int32_t i = size - 1; i >= 0; --i){	//int32_t type is unavoidable because of cycle's condition
 		for (size_t j = k; j < size; ++j){
 			if (mtrx[i][j] < 0){
 				++cnt;
@@ -127,15 +132,15 @@ size_t countNegativeElementsInLowRightTriangle(int32_t** mtrx, size_t size)
 	return cnt;
 }
 
-void print(int32_t max, size_t cnt)
+void print(int32_t max, size_t cnt, bool isMaxElementExist)
 {
-	if (max == INT32_MIN){
+	if (!isMaxElementExist){
 		std::cout << "There is no maximum element, that satisfies condition.\n";
 	}
 	else{
 		std::cout << "Maximum element is " << max << ".\n";
 	}
-	if (cnt != 0){
+	if (cnt){
 		std::cout << "Count of negative elements in right down triangle: " << cnt << ".\n";
 	}
 	else{
@@ -146,7 +151,7 @@ void print(int32_t max, size_t cnt)
 int main()
 {
 	srand(time(NULL));
-	
+
 	int32_t** mtrx = nullptr;
 	size_t size;
 
@@ -155,22 +160,22 @@ int main()
 		allocateMemoryForMtrx(mtrx, size);
 
 		int32_t in_type = inputType();
-		if (in_type){
+		if (in_type == 1){
 			mtrxFillManual(mtrx, size);
 		}
 		else{
 			mtrxFillRandomly(mtrx, size);
 		}
 
-		int32_t max = maxElementInColumn(mtrx, size);
-		
+		bool isMaxElementExist = false;
+		int32_t max = maxElementInColumns(mtrx, size, isMaxElementExist);
 		size_t cnt = countNegativeElementsInLowRightTriangle(mtrx, size);
 		
-		if (!in_type){
+		if (in_type == 2){
 			printMtrx(mtrx, size);
 		}
 
-		print(max,cnt);
+		print(max, cnt, isMaxElementExist);
 		cleanMemory(mtrx, size);
 	}
 	catch (const char* e){
