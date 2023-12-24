@@ -40,8 +40,7 @@ int main()
 {
 	int32_t num = 0;
 	bool dubl;
-	try
-	{
+	try{
 		num = inputNumber();
 		dubl = isReappearingDigits(num);
 		if(dubl){
@@ -51,8 +50,7 @@ int main()
 			std::cout << "There are no duplicates.";
 		}
 	}
-	catch(const char* e)
-	{
+	catch(const char* e){
 		std::cout << e;
 	}
 	return 0;
