@@ -45,7 +45,8 @@ void isNumberWithSumOfDigitsEqualToSquareOfMaxDigit(int32_t numLeftBorder, int32
 	}
 }
 
-int main(){
+int main()
+{
 	try{
 		int32_t numLeftBorder; 
 		int32_t numRightBorder;
@@ -55,7 +56,7 @@ int main(){
 		if (numRightBorder < numLeftBorder){
 			std::swap(numLeftBorder, numRightBorder);
 		}
-		
+
 		isNumberWithSumOfDigitsEqualToSquareOfMaxDigit(numLeftBorder, numRightBorder);
 	}
 	catch (const char* e){
