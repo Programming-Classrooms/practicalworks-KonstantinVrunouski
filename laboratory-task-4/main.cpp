@@ -12,7 +12,7 @@
 #include <iomanip>
 
 
-size_t inputMtrxSize()
+size_t inputSquareMtrxSize()
 {
 	size_t size;
 	std::cout << "Input size of the matrix:\n";
@@ -88,16 +88,14 @@ void cleanMemory(int32_t**& mtrx, size_t size)
 
 bool isPositiveElementInColumn(int32_t** mtrx, size_t size, size_t col)
 {
-	bool isPositiveElements = false;
 	for (size_t i = 0; i < size; ++i)
 	{
 		if (mtrx[i][col] > 0)
 		{
-			isPositiveElements = true;
-			break;
+			return true;
 		}
 	}
-	return isPositiveElements;
+	return false;
 }
 
 int32_t maxElementInColumn(int32_t** mtrx, size_t size)
@@ -120,7 +118,7 @@ int32_t maxElementInColumn(int32_t** mtrx, size_t size)
 size_t countNegativeElementsInLowRightTriangle(int32_t** mtrx, size_t size)
 {
 	size_t k = 0, cnt = 0;
-	for (int32_t i = size - 1; i >= 0; --i)
+	for (size_t i = size - 1; i >= 0; --i)
 	{
 		for (size_t j = k; j < size; ++j)
 		{
@@ -153,7 +151,7 @@ int main()
 	size_t size;
 	try
 	{
-		size = inputMtrxSize();
+		size = inputSquareMtrxSize();
 		allocateMemoryForMtrx(mtrx, size);
 
 		int32_t in_type = inputType();
