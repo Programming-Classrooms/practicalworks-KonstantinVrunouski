@@ -15,10 +15,10 @@
 #include <exception>
 
 
-int32_t inputSize()
+size_t inputSize(const char* message = "Elements quantity:")
 {
-	int32_t size = 0;
-	std::cout << "Elements quantity:\n";
+	size_t size = 0;
+	std::cout << message << '\n';
 	std::cin >> size;
 	if (size <= 0)
 	{
@@ -27,10 +27,10 @@ int32_t inputSize()
 	return size;
 }
 
-bool inputType()
+bool inputType(const char * message = "Input manually or randomly?\n0) Manual; 1) Random")
 {
 	bool ans;
-	std::cout << "Input manually or randomly?\n0) Manual; 1) Random\n";
+	std::cout << message << '\n';
 	std::cin >> ans;
 	if (!ans && ans){
 		throw "Invalid choice.";
@@ -38,9 +38,8 @@ bool inputType()
 	return ans;
 }
 
-void inputArrayManual(int32_t size)
+void inputArrayManual(int32_t* arr, size_t size)
 {
-	int32_t* arr = new int32_t[size];
 	std::cout << "Input elements:\n";
 	for (int i = 0; i < size; ++i)
 	{
@@ -48,10 +47,9 @@ void inputArrayManual(int32_t size)
 	}
 }
 
-void inputArrayRandom(int32_t size)
+void inputArrayRandom(int32_t* arr, size_t size)
 {
-	int32_t* arr = new int32_t[size];
-	int32_t lBord, rBord;
+	size_t lBord, rBord;
 	std::cout << "Input range of random numbers:\n";
 	std::cin >> lBord >> rBord;
 	for (size_t i = 0; i < size; ++i)
@@ -61,9 +59,10 @@ void inputArrayRandom(int32_t size)
 }
 
 
-int32_t findingMaxIndex(int32_t* arr, int32_t size)
+size_t findingMaxNumIndex(int32_t* arr, size_t size)
 {
-	int32_t maxNum = arr[0], maxNumIndex = 0;
+	int32_t maxNum = arr[0]; 
+	size_t maxNumIndex = 0;
 	for (int i = 0; i < size; ++i)
 	{
 		if (arr[i] > maxNum)
@@ -75,26 +74,19 @@ int32_t findingMaxIndex(int32_t* arr, int32_t size)
 	return maxNumIndex;
 }
 
-int32_t calcMultiplicationResult(int32_t* arr, int32_t size, int32_t maxNumIndex)
+int32_t calcMultiplicationResult(int32_t* arr, size_t size, size_t maxNumIndex)
 {
 	double multiplicationResult = 1;
-	if (maxNumIndex == size - 1)
+	for (size_t i = maxNumIndex + 1; i < size; ++i)
 	{
-		return 0;
+		multiplicationResult *= arr[i];
 	}
-	else
-	{
-		for (size_t i = maxNumIndex + 1; i < size; ++i)
-		{
-			multiplicationResult *= arr[i];
-		}
-		return multiplicationResult;
-	}
+	return multiplicationResult;
 }
 
-int32_t countDistinct(int32_t* arr, int32_t n)
+size_t countDistinct(int32_t* arr, size_t n)
 {
-	int32_t counter = 1;
+	size_t counter = 1;
 
 	for (size_t i = 1; i < n; ++i) {
 		size_t j = 0;
@@ -108,7 +100,7 @@ int32_t countDistinct(int32_t* arr, int32_t n)
 	return counter;
 }
 
-void startingArray(int32_t* arr, int32_t size)
+void printArray(int32_t* arr, int32_t size)
 {
 	std::cout << "Starting array:\n";
 	for (size_t i = 0; i < size; ++i)
@@ -118,12 +110,33 @@ void startingArray(int32_t* arr, int32_t size)
 	return;
 }
 
-
-
-void print(int32_t* arr, int32_t size, int32_t maxNumIndex, int32_t multiplicationResult)
+void selectionSort(int32_t* arr, size_t n)
 {
-	std::cout << "\nNumber of the unique elements and result of multiplication of the elements after maximum:\n" << countDistinct(arr, size) << '\t' << multiplicationResult << '\n' << "Sorted array:\n";
+    size_t i, j, minInd;
+ 
+    for (i = 0; i < n - 1; i++) {
+ 
+        minInd = i;
+        for (j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minInd])
+                minInd = j;
+        }
+ 
+        if (minInd != i)
+            std::swap(arr[minInd], arr[i]);
+    }
+}
 
+void print(int32_t* arr, size_t size, size_t maxNumIndex, int32_t multiplicationResult)
+{
+	std::cout << "\nNumber of the unique elements and result of multiplication of the elements after maximum:\n" << countDistinct(arr, size);
+	if (maxNumIndex != size-1){
+		std::cout << '\t' << multiplicationResult << '\n'; 
+	}
+	else{
+		std::cout << '\t' << "There's no multiplication." << '\n';
+	}
+	std::cout << "Sorted array:\n";
 	for (size_t i = 0; i < size; ++i)
 	{
 		std::cout << arr[i] << ' ';
@@ -139,24 +152,24 @@ int main()
 	{
 		int32_t size = inputSize();
 		bool inType = inputType();
-		int32_t* arr = new int32_t[size];		
+		int32_t* arr = new int32_t[size];
+
 		if (!inType)
 		{
-			inputArrayManual(size);
+			inputArrayManual(arr, size);
 		}
 		else
 		{
-			inputArrayRandom(size);
+			inputArrayRandom(arr, size);
 		}
 
-		
-		startingArray(arr, size);
+		printArray(arr, size);
 
-		int32_t maxNumIndex = findingMaxIndex(arr, size);
+		int32_t maxNumIndex = findingMaxNumIndex(arr, size);
 
 		int32_t multiplicationResult = calcMultiplicationResult(arr, size, maxNumIndex);
 
-		arr = bubbleSort(arr, size);
+		selectionSort(arr, size);
 
 		print(arr, size, maxNumIndex, multiplicationResult);
 
