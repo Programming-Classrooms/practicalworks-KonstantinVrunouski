@@ -1,6 +1,7 @@
 /*
 	Вычислить значение определенного интеграла с аналитически заданной подынтегральной
 	функцией с заданной точностью eps.
+	Методы подсчёта интегралов:
 	-по формуле левых прямоугольников;
 	-по формуле трапеций;
 	Вариант и интегралы приложены на скриншоте.
@@ -16,8 +17,7 @@ double getEpsilon(double eps)
 {
 	std::cout << "Input epsilon:\n";
 	std::cin >> eps;
-	if (eps <= 0 || eps >= 1)
-	{
+	if (eps <= 0 || eps >= 1){
 		throw "Invalid epsilon.";
 	}
 	return eps;
@@ -28,8 +28,7 @@ int32_t chooseIntegral(int32_t chIntgrl)
 	std::cout << "Choose an integral:" << '\n';
 	std::cout << "1)First" << ' ' << "2)Second" << ' ' << "3)Third" << '\n';
 	std::cin >> chIntgrl;
-	if (chIntgrl != 1 && chIntgrl != 2 && chIntgrl != 3)
-	{
+	if (chIntgrl != 1 && chIntgrl != 2 && chIntgrl != 3){
 		throw "Invalid integral.";
 	}
 	return chIntgrl;
@@ -40,8 +39,7 @@ int32_t chooseMethod(int32_t chMethod)
 	std::cout << "Choose a method to calculate integral:" << '\n';
 	std::cout << "1)Left rectangles" << ' ' << "2)Trapezoids" << '\n';
 	std::cin >> chMethod;
-	if (chMethod != 1 && chMethod != 2)
-	{
+	if (chMethod != 1 && chMethod != 2){
 		throw "Invalid method.";
 	}
 	return chMethod;
@@ -78,8 +76,7 @@ double calc_x(double left_brdr, double right_brdr, int n, int i)
 long double calc_integral1rectangle(double left_brdr, double right_brdr, int n)
 {
 	double h, xi, xiPlusOne, integralValue{ 0 };
-	for (int i = 0; i < n; ++i)
-	{
+	for (int i = 0; i < n; ++i){
 		xi = calc_x(left_brdr, right_brdr, n, i);
 		xiPlusOne = calc_x(left_brdr, right_brdr, n, i+1);
 		integralValue += funcCalcFirst(xi) * (xiPlusOne - xi);
@@ -90,8 +87,7 @@ long double calc_integral1rectangle(double left_brdr, double right_brdr, int n)
 long double calc_integral2rectangle(double left_brdr, double right_brdr, int n)
 {
 	double xi, xiPlusOne, s2{ 0 };
-	for (int i = 0; i < n; ++i)
-	{
+	for (int i = 0; i < n; ++i){
 		xi = calc_x(left_brdr, right_brdr, n, i);
 		xiPlusOne = calc_x(left_brdr, right_brdr, n, i + 1);
 		s2 += funcCalcSecond(xi) * (xiPlusOne - xi);
@@ -102,8 +98,7 @@ long double calc_integral2rectangle(double left_brdr, double right_brdr, int n)
 long double calc_integral3rectangle(double left_brdr, double right_brdr, int n)
 {
 	double xi, xiPlusOne, s3{ 0 };
-	for (int i = 0; i < n; ++i)
-	{
+	for (int i = 0; i < n; ++i){
 		xi = calc_x(left_brdr, right_brdr, n, i);
 		xiPlusOne = calc_x(left_brdr, right_brdr, n, i + 1);
 		s3 += funcCalcThird(xi) * (xiPlusOne - xi);
@@ -116,7 +111,7 @@ long double calcIntegral1Trapezoid(double leftBrdr, double rightBrdr, int n)
 	const double width = (rightBrdr - leftBrdr) / n;
 
 	double s = 0;
-	for (int step = 0; step < n; step++) {
+	for (int step = 0; step < n; step++){
 		const double x1 = leftBrdr + step * width;
 		const double x2 = leftBrdr + (step + 1) * width;
 
@@ -130,7 +125,7 @@ long double calcIntegral2Trapezoid(double leftBrdr, double rightBrdr, int n)
 	const double width = (rightBrdr - leftBrdr) / n;
 
 	double s = 0;
-	for (int step = 0; step < n; step++) {
+	for (int step = 0; step < n; step++){
 		const double x1 = leftBrdr + step * width;
 		const double x2 = leftBrdr + (step + 1) * width;
 
@@ -144,7 +139,7 @@ long double calcIntegral3Trapezoid(double leftBrdr, double rightBrdr, int n)
 	const double width = (rightBrdr - leftBrdr) / n;
 
 	double s = 0;
-	for (int step = 0; step < n; step++) {
+	for (int step = 0; step < n; step++){
 		const double x1 = leftBrdr + step * width;
 		const double x2 = leftBrdr + (step + 1) * width;
 
@@ -178,33 +173,25 @@ int main()
 		const double intgrlThird = { -0.18714606 };
 		int32_t chIntgrl = { 0 };
 		int32_t chMethod = { 0 };
-	try
-	{
+	try{
 		eps = getEpsilon(eps);
 		chMethod = chooseMethod(chMethod);
 		chIntgrl = chooseIntegral(chIntgrl);
-		switch (chMethod)		
-		{
-		case 1:
-		{
-			switch (chIntgrl)
-			{
-			case 1:
-			{
+		switch (chMethod){
+		case 1:{
+			switch (chIntgrl){
+			case 1:{
 				int32_t divs = 4;
-				while (fabs(intgrlFirst - integralValue) > eps)
-				{
+				while (fabs(intgrlFirst - integralValue) > eps){
 					integralValue = calc_integral1rectangle(leftBrdrFirst, rightBrdrFirst, divs);
 					divs *= 2;
 				}
 				printValue(integralValue);
 				break;
 			}
-			case 2:
-			{
+			case 2:{
 				int32_t divs = 4;
-				while (fabs(intgrlSecond - integralValue) > eps)
-				{
+				while (fabs(intgrlSecond - integralValue) > eps){
 					integralValue = calc_integral2rectangle(leftBrdrSecond, rightBrdrSecond, divs);
 					divs *= 2;
 				}
@@ -212,11 +199,9 @@ int main()
 				printValue(integralValue);
 				break;
 			}
-			case 3:
-			{
+			case 3:{
 				int32_t divs = 4;
-				while (fabs(intgrlThird - integralValue) > eps)
-				{
+				while (fabs(intgrlThird - integralValue) > eps){
 					integralValue = calc_integral3rectangle(leftBrdrThird, rightBrdrThird, divs);
 					divs *= 2;
 				}
@@ -226,15 +211,11 @@ int main()
 			}
 			break;
 		}
-		case 2:
-		{
-			switch (chIntgrl)
-			{
-				case 1:
-				{
+		case 2:{
+			switch (chIntgrl){
+				case 1:{
 					int32_t divs = 4;
-					while (fabs(intgrlFirst - integralValue) > eps)
-					{
+					while (fabs(intgrlFirst - integralValue) > eps){
 						integralValue = calcIntegral1Trapezoid(leftBrdrFirst, rightBrdrFirst, divs);
 						divs *= 2;
 					}
@@ -242,8 +223,7 @@ int main()
 					break;
 				}
 				break;
-				case 2:
-				{
+				case 2:{
 					int32_t divs = 4;
 					while (fabs(intgrlSecond - integralValue) > eps)
 					{
@@ -253,11 +233,9 @@ int main()
 					printValue(integralValue);
 					break;
 				}
-				case 3:
-				{
+				case 3:{
 					int32_t divs = 4;
-					while (fabs(intgrlThird - integralValue) > eps)
-					{
+					while (fabs(intgrlThird - integralValue) > eps){
 						integralValue = calcIntegral3Trapezoid(leftBrdrThird, rightBrdrThird, divs);
 						divs *= 2;
 					}
@@ -269,8 +247,7 @@ int main()
 		}
 		}
 	}
-	catch (const char* e)
-	{
+	catch (const char* e){
 		std::cout << "An exception occurred: " << e;
 		return -1;
 	}
