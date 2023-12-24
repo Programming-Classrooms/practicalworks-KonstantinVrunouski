@@ -133,25 +133,21 @@ void print(int32_t* arr, size_t size, size_t maxNumIndex, int32_t multiplication
 		std::cout << '\t' << "There's no multiplication." << '\n';
 	}
 	std::cout << "Sorted array:\n";
-	for (size_t i = 0; i < size; ++i)
-	{
+	for (size_t i = 0; i < size; ++i){
 		std::cout << arr[i] << ' ';
 	}
-	return;
 }
 
 int main()
 {
 	srand(time(NULL));
 
-	try
-	{
+	try{
 		int32_t size = inputSize();
 		bool inType = inputType();
 		int32_t* arr = new int32_t[size];
 
-		if (!inType)
-		{
+		if (!inType){
 			inputArrayManual(arr, size);
 		}
 		else
@@ -171,8 +167,7 @@ int main()
 
 		delete[] arr;
 	}
-	catch(const char* e)
-	{
+	catch(const char* e){
 		std::cout << e << '\n';
 	}
 	return 0;
