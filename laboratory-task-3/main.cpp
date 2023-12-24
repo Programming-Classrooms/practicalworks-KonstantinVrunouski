@@ -102,7 +102,6 @@ void printArray(int32_t* arr, int32_t size)
 	for (size_t i = 0; i < size; ++i){
 		std::cout << arr[i] << ' ';
 	}
-	return;
 }
 
 void selectionSort(int32_t* arr, size_t n)
