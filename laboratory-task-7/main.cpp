@@ -12,8 +12,7 @@
 
 void isEmptyLine(char string[])
 {
-	if (!strlen(string)) 
-	{
+	if (!strlen(string)){
 		throw "Line is empty.";
 	}
 }
@@ -31,20 +30,19 @@ char* divideLineByWords(char str[301], char div[301])
 	char* newString = new char[301];
 	size_t lenWord;
 	size_t lenMaxWord = { 0 };
-	while (word != NULL)
-	{
+	while (word != NULL){
 		lenWord = strlen(word);
-		if (lenWord > lenMaxWord)
-		{
+
+		if (lenWord > lenMaxWord){
 			lenMaxWord = lenWord;
 			strcpy(newString, word);
 			strcat(newString, "; ");
 		}
-		else if (lenWord == lenMaxWord)
-		{
+		else if (lenWord == lenMaxWord){
 			strcat(newString, word);
 			strcat(newString, "; ");
 		}
+
 		word = strtok(NULL, div);
 	}
 	return newString;
@@ -57,8 +55,7 @@ void print(char* str)
 
 int main()
 {
-	try
-	{
+	try{
 		char string[301];
 		char delimeters[301];
 		char* newString = new char[301];
@@ -71,8 +68,7 @@ int main()
 		
 		print(newString);
 	}
-	catch (const char* e)
-	{
+	catch (const char* e){
 		std::cout << e;
 	}
 	return 0;
