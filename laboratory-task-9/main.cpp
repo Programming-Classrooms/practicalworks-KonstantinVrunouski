@@ -12,18 +12,18 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <string>
+#include <string.h>
 
 
 void checkFile(std::istream& fin)
 {
-	if (!fin.good()){
+	if (!fin.good()) {
 		throw "File does not exist.";
 	}
-	if (!fin){
+	if (!fin) {
 		throw "File is not opened.";
 	}
-	if (fin.peek() == EOF){
+	if (fin.peek() == EOF) {
 		throw "File is empty.";
 	}
 }
@@ -44,27 +44,36 @@ void createSubjectIndex(std::vector<std::string>& subjectIndex, std::string word
 	}
 }
 
-void divideLineByWords(std::string line, std::vector<std::string>& subjectIndex, size_t lineNum)
+void divideLineByWords(std::string line, std::vector<std::string>& subjectIndex, size_t lineNum, size_t& subjectIndexLen)
 {
-	std::string word; 
-	std::string delims = " ";
+	std::string word;
+	std::string delims = " \t";
 	std::string::size_type begInd;
-	size_t subjectIndexLen = subjectIndex.size();
 	bool isFind = false;
 
 	begInd = line.find_first_not_of(delims);
-	while (begInd != std::string::npos){
+	while (begInd != std::string::npos) {
 		isFind = false;
 		std::string::size_type endInd;
 		endInd = line.find_first_of(delims, begInd);
-		if (endInd == std::string::npos){
+		if (endInd == std::string::npos) {
 			endInd = line.length();
 		}
 		word = line.substr(begInd, endInd - begInd);
-		
+
 		createSubjectIndex(subjectIndex, word, subjectIndexLen, isFind, lineNum);
-		
+
 		begInd = line.find_first_not_of(delims, endInd);
+	}
+}
+
+void print(std::ofstream& fout, std::vector<std::string>& subjectIndex, size_t subjectIndexLen)
+{
+	if (subjectIndexLen == 0) {
+		throw "There are no words in file.";
+	}
+	for (size_t i = 0; i < subjectIndexLen; ++i) {
+		fout << subjectIndex[i] << '\n';
 	}
 }
 
@@ -73,27 +82,27 @@ int main()
 	std::ifstream fin("input.txt");
 	std::ofstream fout("output.txt");
 
-	try{
+	try {
 		checkFile(fin);
 
 		size_t lineNumber = { 1 };
+		size_t subjectIndexLen = { 0 };
 		std::string str;
-		std::vector<std::string> contForWords;
+		std::vector<std::string> subjectIndex;
 
-		while (fin){
+		while (fin) {
 			getline(fin, str);
-			divideLineByWords(str, contForWords, lineNumber);
+			divideLineByWords(str, subjectIndex, lineNumber, subjectIndexLen);
 			++lineNumber;
 		}
 
-		for (size_t i = 0; i < contForWords.size(); ++i){
-			fout << contForWords[i] << '\n';
-		}
-
 		fin.close();
+
+		print(fout, subjectIndex, subjectIndexLen);
+
 		fout.close();
 	}
-	catch (const char* e){
+	catch (const char* e) {
 		std::cout << e << '\n';
 		fin.close();
 		fout.close();
