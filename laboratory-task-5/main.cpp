@@ -154,6 +154,7 @@ void print(long double s, const char* message = "Value of the integral:")
 	std::cout << s << '\n';
 }
 
+
 int main()
 {
 	double rightBrdrFirst = { 2.1 };
