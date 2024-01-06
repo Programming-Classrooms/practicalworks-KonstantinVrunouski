@@ -18,7 +18,7 @@ double inputEpsilon(double eps)
 	std::cout << "Input epsilon:\n";
 	std::cin >> eps;
 	if (eps <= 0 || eps >= 1){
-		throw "Invalid epsilon.";
+		throw std::exception("Invalid epsilon.");
 	}
 	return eps;
 }
@@ -28,8 +28,8 @@ int32_t chooseIntegral(int32_t chIntgrl)
 	std::cout << "Choose an integral:" << '\n';
 	std::cout << "1)First" << ' ' << "2)Second" << ' ' << "3)Third" << '\n';
 	std::cin >> chIntgrl;
-	if (chIntgrl != 1 && chIntgrl != 2 && chIntgrl != 3){
-		throw "Invalid integral.";
+	if (chIntgrl < 1 || chIntgrl > 3){
+		throw std::exception("Invalid integral.");
 	}
 	return chIntgrl;
 }
@@ -39,8 +39,8 @@ int32_t chooseMethod(int32_t chMethod)
 	std::cout << "Choose a method to calculate integral:" << '\n';
 	std::cout << "1)Left rectangles" << ' ' << "2)Trapezoids" << '\n';
 	std::cin >> chMethod;
-	if (chMethod != 1 && chMethod != 2){
-		throw "Invalid method.";
+	if (chMethod < 1 || chMethod > 2){
+		throw std::exception("Invalid method.");
 	}
 	return chMethod;
 }
@@ -156,23 +156,23 @@ void print(long double s, const char* message = "Value of the integral:")
 
 int main()
 {
-		double rightBrdrFirst = { 2.1 };
-		double rightBrdrSecond = { M_PI / 2 };
-		double rightBrdrThird = { 0.5 }; 
-		double leftBrdrFirst = { 0.2 }; 
-		double leftBrdrSecond = { 0 }; 
-		double leftBrdrThird = { 0 };
-		long double eps = { 0 }; 
-		long double xi; 
-		long double xiPlusOne;
-		long double integralValue = { 1 };  
-		long double h; 
-		long double h_plus_one;
-		const double intgrlFirst = { 2.8658854 }; 
-		const double intgrlSecond = { 2.9052387 }; 
-		const double intgrlThird = { -0.18714606 };
-		int32_t chIntgrl = { 0 };
-		int32_t chMethod = { 0 };
+	double rightBrdrFirst = { 2.1 };
+	double rightBrdrSecond = { M_PI / 2 };
+	double rightBrdrThird = { 0.5 }; 
+	double leftBrdrFirst = { 0.2 }; 
+	double leftBrdrSecond = { 0 }; 
+	double leftBrdrThird = { 0 };
+	long double eps = { 0 }; 
+	long double xi; 
+	long double xiPlusOne;
+	long double integralValue = { 1 };  
+	long double h; 
+	long double h_plus_one;
+	const double intgrlFirst = { 2.8658854 }; 
+	const double intgrlSecond = { 2.9052387 }; 
+	const double intgrlThird = { -0.18714606 };
+	int32_t chIntgrl = { 0 };
+	int32_t chMethod = { 0 };
 	try{
 		eps = inputEpsilon(eps);
 		chMethod = chooseMethod(chMethod);
@@ -247,9 +247,9 @@ int main()
 		}
 		}
 	}
-	catch (const char* e){
-		std::cout << "An exception occurred: " << e;
-		return -1;
+	catch (std::exception e){
+		std::cout << e.what();
+		return 0;
 	}
 	return 0;	
 }
