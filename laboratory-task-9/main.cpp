@@ -18,13 +18,13 @@
 void checkFile(std::istream& fin)
 {
 	if (!fin.good()) {
-		throw "File does not exist.";
+		throw std::exception("File does not exist.");
 	}
 	if (!fin) {
-		throw "File is not opened.";
+		throw std::exception("File is not opened.");
 	}
 	if (fin.peek() == EOF) {
-		throw "File is empty.";
+		throw std::exception("File is empty.");
 	}
 }
 
@@ -70,7 +70,7 @@ void divideLineByWords(std::string line, std::vector<std::string>& subjectIndex,
 void print(std::ofstream& fout, std::vector<std::string>& subjectIndex, size_t subjectIndexLen)
 {
 	if (subjectIndexLen == 0) {
-		throw "There are no words in file.";
+		throw std::exception("There are no words in file.");
 	}
 	for (size_t i = 0; i < subjectIndexLen; ++i) {
 		fout << subjectIndex[i] << '\n';
@@ -102,8 +102,8 @@ int main()
 
 		fout.close();
 	}
-	catch (const char* e) {
-		std::cout << e << '\n';
+	catch (std::exception e) {
+		std::cout << e.what() << '\n';
 		fin.close();
 		fout.close();
 	}
