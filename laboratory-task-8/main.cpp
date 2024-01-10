@@ -12,7 +12,7 @@
 void checkStringEmtiness(std::string string, const char* message = "Line is empty.")
 {
 	if (string.empty()){
-		throw message;
+		throw std::exception(message);
 	}
 }
 
@@ -99,8 +99,8 @@ int main()
 		
 		print(newLine);
 	}
-	catch (const char* e){
-		std::cout << e;
+	catch (std::exception e){
+		std::cout << e.what();
 	}
 
 	return 0;
