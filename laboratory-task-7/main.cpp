@@ -13,7 +13,7 @@
 void isEmptyLine(char string[])
 {
 	if (!strlen(string)){
-		throw "Line is empty.";
+		throw std::exception("Line is empty.");
 	}
 }
 
@@ -68,8 +68,8 @@ int main()
 		
 		print(newString);
 	}
-	catch (const char* e){
-		std::cout << e;
+	catch (std::exception e){
+		std::cout << e.what();
 	}
 	return 0;
 }
