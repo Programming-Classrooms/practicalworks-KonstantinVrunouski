@@ -18,7 +18,7 @@ size_t inputSquareMtrxSize()
 	std::cout << "Input size of the matrix:\n";
 	std::cin >> size;
 	if (size <= 0){
-		throw "Invalid size.";
+		throw std::exception("Invalid size.");
 	}
 	return size;
 }
@@ -37,7 +37,7 @@ int32_t inputType()
 	int32_t inType;
 	std::cin >> inType;
 	if (inType != 1 && inType != 2){
-		throw "Invalid choice.";
+		throw std::exception("Invalid choice.");
 	}
 	return inType;
 }
@@ -178,8 +178,8 @@ int main()
 		print(max, cnt, isMaxElementExist);
 		cleanMemory(mtrx, size);
 	}
-	catch (const char* e){
-		std::cout << e;
+	catch (std::exception e){
+		std::cout << e.what();
 		cleanMemory(mtrx, size);
 	}
 	return 0;
