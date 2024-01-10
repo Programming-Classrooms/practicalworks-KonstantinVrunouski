@@ -21,7 +21,7 @@ size_t inputSize(const char* message = "Elements quantity:")
 	std::cout << message << '\n';
 	std::cin >> size;
 	if (size <= 0){
-		throw "Invalid quantity.";
+		throw std::exception("Invalid quantity.");
 	}
 	return size;
 }
@@ -32,7 +32,7 @@ bool inputType(const char * message = "Input manually or randomly?\n0) Manual; 1
 	std::cout << message << '\n';
 	std::cin >> ans;
 	if (!ans && ans){
-		throw "Invalid choice.";
+		throw std::exception("Invalid choice.");
 	}
 	return ans;
 }
@@ -166,8 +166,8 @@ int main()
 
 		delete[] arr;
 	}
-	catch(const char* e){
-		std::cout << e << '\n';
+	catch(std::exception e){
+		std::cout << e.what() << '\n';
 	}
 	return 0;
 }
