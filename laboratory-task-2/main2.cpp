@@ -13,7 +13,7 @@ void inputBorders(int32_t& numLeftBorder, int32_t& numRightBorder, const char* m
 	std::cin >> numLeftBorder >> numRightBorder;
 
 	if (numLeftBorder <= 0 || numRightBorder <= 0){
-		throw "Invalid input. Check borders and restart the program.";
+		throw std::exception("Invalid input. Check borders and restart the program.");
 	}
 }
 
@@ -59,8 +59,8 @@ int main()
 
 		isNumberWithSumOfDigitsEqualToSquareOfMaxDigit(numLeftBorder, numRightBorder);
 	}
-	catch (const char* e){
-		std::cout << e;
+	catch (std::exception e){
+		std::cout << e.what();
 	}
 	return 0;
 }

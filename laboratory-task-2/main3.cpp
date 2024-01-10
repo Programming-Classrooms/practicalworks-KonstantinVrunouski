@@ -16,7 +16,7 @@ int32_t inputNumber(const char* message = "Enter natural number:")
     std::cin >> num;
 
     if (num <= 0){
-        throw "Invalid number.";
+        throw std::exception("Invalid number.");
     }
 
     return num;
@@ -60,8 +60,8 @@ int main()
 
         fractPrint(num, denominator);
     }
-    catch (const char* e){
-        std::cout << e;
+    catch (std::exception e){
+        std::cout << e.what();
     }
     return 0;
 }

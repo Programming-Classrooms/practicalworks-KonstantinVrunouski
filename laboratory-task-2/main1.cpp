@@ -15,7 +15,7 @@ int32_t inputNumber(const char * message = "Input number:")
 	std::cin >> num;
 	
 	if (num <= 0){
-		throw "Not a natural number.";
+		throw std::exception("Not a natural number.");
 	}
 
 	return num;
@@ -57,8 +57,8 @@ int main()
 			std::cout << "There are no duplicates.";
 		}
 	}
-	catch(const char* e){
-		std::cout << e;
+	catch(std::exception e){
+		std::cout << e.what();
 	}
 
 	return 0;
