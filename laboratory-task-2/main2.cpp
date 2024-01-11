@@ -47,7 +47,7 @@ void isNumberWithSumOfDigitsEqualToSquareOfMaxDigit(int32_t numLeftBorder, int32
 
 int main()
 {
-	try{
+	try {
 		int32_t numLeftBorder; 
 		int32_t numRightBorder;
 

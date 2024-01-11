@@ -54,7 +54,7 @@ void fractPrint(int32_t num, int32_t denominator)
 
 int main() 
 {
-    try{
+    try {
         int32_t num = inputNumber();
         int32_t denominator = factorial(num);
 

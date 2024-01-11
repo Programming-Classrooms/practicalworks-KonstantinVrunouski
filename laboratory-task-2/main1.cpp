@@ -46,7 +46,7 @@ int main()
 	int32_t num = 0;
 	bool dubl;
 
-	try{
+	try {
 		num = inputNumber();
 		dubl = isReappearingDigits(num);
 		
