@@ -46,7 +46,7 @@ void fractPrint(int32_t num, int32_t denominator)
             }
         }
 
-        if (tempDenominator <= num && numerator != 0){
+        if (tempDenominator < num && numerator != 0){
             std::cout << numerator << '/' << tempDenominator << '\t';
         }
     }
