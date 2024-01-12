@@ -42,17 +42,17 @@ bool isPalindrome(std::string line)
 void createNewPalindromesLine(std::string word, size_t wordLen, size_t& wordMaxLen, std::string& newLine)
 {
 	if (wordLen > wordMaxLen){
-			wordMaxLen = wordLen;
-			if (isPalindrome(word)){
-				newLine = word;
-			}
+		wordMaxLen = wordLen;
+		if (isPalindrome(word)){
+			newLine = word;
 		}
-		else if (wordLen == wordMaxLen){
-			if (isPalindrome(word)){
-				newLine += ", ";
-				newLine += word;
-			}
+	}
+	else if (wordLen == wordMaxLen){
+		if (isPalindrome(word)){
+			newLine += ", ";
+			newLine += word;
 		}
+	}
 }
 
 std::string transformString(std::string line, std::string delims)
