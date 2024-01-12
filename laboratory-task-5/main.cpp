@@ -174,83 +174,92 @@ int main()
 	const double intgrlThird = { -0.18714606 };
 	int32_t chIntgrl = { 0 };
 	int32_t chMethod = { 0 };
-	try{
+
+	try {
 		eps = inputEpsilon(eps);
 		chMethod = chooseMethod(chMethod);
 		chIntgrl = chooseIntegral(chIntgrl);
-		switch (chMethod){
-		case 1:{
-			switch (chIntgrl){
-			case 1:{
-				int32_t divs = 4;
-				while (fabs(intgrlFirst - integralValue) > eps){
-					integralValue = calcFirstIntegralRectangle(leftBrdrFirst, rightBrdrFirst, divs);
-					divs *= 2;
-				}
-				print(integralValue);
-				break;
-			}
-			case 2:{
-				int32_t divs = 4;
-				while (fabs(intgrlSecond - integralValue) > eps){
-					integralValue = calcSecondIntegralRectangle(leftBrdrSecond, rightBrdrSecond, divs);
-					divs *= 2;
-				}
 
-				print(integralValue);
+		switch (chMethod) {
+			case 1: {
+				switch (chIntgrl) {
+					case 1: {
+						int32_t divs = 4;
+						while (fabs(intgrlFirst - integralValue) > eps){
+							integralValue = calcFirstIntegralRectangle(leftBrdrFirst, rightBrdrFirst, divs);
+							divs *= 2;
+						}
+						print(integralValue);
+						break;
+
+					}
+					
+					case 2: {
+						int32_t divs = 4;
+						while (fabs(intgrlSecond - integralValue) > eps){
+							integralValue = calcSecondIntegralRectangle(leftBrdrSecond, rightBrdrSecond, divs);
+							divs *= 2;
+						}
+
+						print(integralValue);
+						break;
+					}
+
+					case 3: {
+						int32_t divs = 4;
+						while (fabs(intgrlThird - integralValue) > eps){
+							integralValue = calcThirdIntegralRectangle(leftBrdrThird, rightBrdrThird, divs);
+							divs *= 2;
+						}
+						print(integralValue);
+						break;
+					}
+				}
 				break;
 			}
-			case 3:{
-				int32_t divs = 4;
-				while (fabs(intgrlThird - integralValue) > eps){
-					integralValue = calcThirdIntegralRectangle(leftBrdrThird, rightBrdrThird, divs);
-					divs *= 2;
+
+			case 2: {
+				switch (chIntgrl) {
+					case 1: {
+						int32_t divs = 4;
+						while (fabs(intgrlFirst - integralValue) > eps) {
+							integralValue = calcFirstIntegralTrapezoid(leftBrdrFirst, rightBrdrFirst, divs);
+							divs *= 2;
+						}
+						print(integralValue);
+						break;
+					}
+					break;
+
+					case 2: {
+						int32_t divs = 4;
+						while (fabs(intgrlSecond - integralValue) > eps) {
+							integralValue = calcSecondIntegralTrapezoid(leftBrdrSecond, rightBrdrSecond, divs);
+							divs *= 2;
+						}
+						print(integralValue);
+						break;
+					}
+
+					case 3: {
+						int32_t divs = 4;
+						while (fabs(intgrlThird - integralValue) > eps) {
+							integralValue = calcThirdIntegralTrapezoid(leftBrdrThird, rightBrdrThird, divs);
+							divs *= 2;
+						}
+						print(integralValue);
+						break;
+					}
 				}
-				print(integralValue);
 				break;
 			}
-			}
-			break;
-		}
-		case 2:{
-			switch (chIntgrl){
-				case 1:{
-					int32_t divs = 4;
-					while (fabs(intgrlFirst - integralValue) > eps){
-						integralValue = calcFirstIntegralTrapezoid(leftBrdrFirst, rightBrdrFirst, divs);
-						divs *= 2;
-					}
-					print(integralValue);
-					break;
-				}
-				break;
-				case 2:{
-					int32_t divs = 4;
-					while (fabs(intgrlSecond - integralValue) > eps)
-					{
-						integralValue = calcSecondIntegralTrapezoid(leftBrdrSecond, rightBrdrSecond, divs);
-						divs *= 2;
-					}
-					print(integralValue);
-					break;
-				}
-				case 3:{
-					int32_t divs = 4;
-					while (fabs(intgrlThird - integralValue) > eps){
-						integralValue = calcThirdIntegralTrapezoid(leftBrdrThird, rightBrdrThird, divs);
-						divs *= 2;
-					}
-					print(integralValue);
-					break;
-				}
-			}
-			break;
-		}
 		}
 	}
-	catch (std::exception e){
+	catch (std::exception e) {
 		std::cout << e.what();
+	
 		return 0;
 	}
+
 	return 0;	
 }
