@@ -24,15 +24,18 @@ int32_t inputNumber(const char * message = "Input number:")
 bool isReappearingDigits(int32_t num)
 {
 	int32_t cnt;
+	int32_t temp;
 
-	for (size_t i = 0; i <= 9; ++i){
+	for (size_t i = 0; i <= 9; ++i) {
 		cnt = 0;
-		while (num != 0){
-			if (num % 10 == i){
-				cnt++;
+		temp = num;
+		while (temp != 0){
+			if (temp % 10 == i){
+				++cnt;
 			}
-			num /= 10;
+			temp /= 10;
 		}
+		
 		if (cnt >= 2){
 			return true;
 		}
