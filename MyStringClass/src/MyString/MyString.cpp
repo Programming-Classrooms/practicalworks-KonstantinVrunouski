@@ -17,7 +17,7 @@ MyString::MyString(const MyString& t) : len(strlen(t.str)), str(new char[len + 1
 	strcpy(str, t.str);
 }
 
-MyString& MyString::operator=(const char* s)
+MyString& MyString::operator = (const char* s)
 {
     delete[] str;
     len = std::strlen(s);
@@ -86,12 +86,12 @@ std::istream& operator >> (std::istream& is, MyString& s)
 	}
 }
 
-bool operator<(const MyString& st1, const MyString& st2)
+bool operator < (const MyString& st1, const MyString& st2)
 {
     return (std::strcmp(st1.str, st2.str) < 0);
 }
 
-bool operator>(const MyString& st1, const MyString& st2)
+bool operator > (const MyString& st1, const MyString& st2)
 {
     return (std::strcmp(st1.str, st2.str) > 0);
 }
@@ -134,7 +134,6 @@ size_t MyString::count(char ch) const
 
     return counter;
 }
-
 
 int64_t MyString::findFirst(const char ch)
 {

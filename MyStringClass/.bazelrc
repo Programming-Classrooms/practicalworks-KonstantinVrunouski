@@ -29,4 +29,5 @@ test --color=yes
 # build --cxxopt='-Werror=unused-result'
 # test --cxxopt='-Werror=unused-result'
 # build --cxxopt='-Werror=unused-variable'
-# test --cxxopt='-Werror=unused-variable' 
+# test --cxxopt='-Werror=unused-variable'
+ 
