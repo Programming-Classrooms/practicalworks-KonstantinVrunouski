@@ -1,6 +1,10 @@
 #include <gtest/gtest.h>
-#include "../Matrix/Matrix.hpp"
 
+
+TEST(Needed, ItJustWorks)
+{
+    EXPECT_EQ(1, 1);
+}
 
 
 int main(int argc, char **argv) {

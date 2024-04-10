@@ -5,6 +5,6 @@ cc_test(
     srcs = ["tests.cpp"],
     deps = [
         "@googletest//:gtest_main",
-        "//src/Matrix:Matrix",
+        "//src/Source:Person",
     ]
 )
