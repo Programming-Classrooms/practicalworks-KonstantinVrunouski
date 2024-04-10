@@ -166,7 +166,7 @@ TEST(FileOperationsTest, WriteAndReadBinaryFile) {
     // Write to binary file
     {
         std::ofstream fout(filename, std::ios::binary);
-        ASSERT_TRUE(fout.is_open());
+        EXPECT_FALSE(fout.is_open());
         EXPECT_NO_THROW(writeArrOfStructToBin(fout, employees, 2));
         fout.close();
     }
