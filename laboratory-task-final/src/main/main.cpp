@@ -2,6 +2,7 @@
 #include <queue>
 #include <map>
 #include <set>
+#include <vector>
 #include <algorithm>
 #include "../BusRoute/BusRoute.hpp"
 
@@ -78,6 +79,33 @@ void deleteElement(std::map<std::string, BusRoute>& mapRoutes, const std::string
     mapRoutes.erase(driver);
 }
 
+std::map<size_t, std::set<std::string> > createMapRoutesNumberBrands(
+    const std::map<std::string, BusRoute>& mapRoutes)
+{
+    std::map<size_t, std::set<std::string> > routeNumberBrands;
+    std::pair<size_t, std::set<std::string> > tempPair;
+
+    std::map<size_t, std::set<std::string>>::iterator temp;
+
+    for (auto i : mapRoutes)
+    {
+        tempPair.second.clear();
+        tempPair.first = i.second.getRouteNumber();
+        tempPair.second.insert(i.second.getBrand());
+        temp = routeNumberBrands.find(tempPair.first);
+        if (temp != routeNumberBrands.end())
+        {
+            temp->second.insert(i.second.getBrand());
+        }
+        else
+        {
+            routeNumberBrands.insert(tempPair);
+        }
+    }
+
+    return routeNumberBrands;
+}
+
 
 int main()
 {
@@ -101,16 +129,25 @@ int main()
     std::cout << "Drivers on that route:\n";
     printDriversByRouteNumber(mapRoutes, tempRouteNumber);
 
-    std::cout << "All drivers:\n";
+    std::cout << "\nAll drivers:\n";
     printDriversByBrand(mapRoutes);
 
     std::string tempDriver;
-    std::cout << "Input driver to delete:\n";
+    std::cout << "\nInput driver to delete:\n";
     std::cin >> tempDriver;
     
     deleteElement(mapRoutes, tempDriver);
 
-    
+    std::map<size_t, std::set<std::string> > routeNumberBrands = createMapRoutesNumberBrands(mapRoutes);
+
+    std::cout << "\nRoutes with buses of the one brand:\n";
+    for (auto i : routeNumberBrands)
+    {
+        if (i.second.size() == 1)
+        {
+            std::cout << i.first << '\n';
+        }
+    }
 
     return 0;
 }

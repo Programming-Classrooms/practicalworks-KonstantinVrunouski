@@ -5,7 +5,6 @@ cc_test(
     deps = 
     [
         "@googletest//:gtest_main",
-        "//src/Source:func",
-    ],
-    data = ["//src/files:data"]
+        "//src/BusRoute:BusRoute",
+    ]
 )
