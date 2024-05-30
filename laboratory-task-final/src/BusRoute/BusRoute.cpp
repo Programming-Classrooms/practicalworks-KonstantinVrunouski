@@ -62,7 +62,7 @@ BusRoute &BusRoute::operator=(const BusRoute &rhs)
         routeNumber = rhs.routeNumber;
         driver = rhs.driver;
         busNumber = rhs.busNumber;
-        brand = rhs.busNumber;
+        brand = rhs.brand;
     }
 
     return *this;
@@ -126,4 +126,39 @@ void BusRoute::setBrand(const std::string &newBrand)
     }
 
     brand = newBrand;
+}
+
+bool BusRoute::operator==(const BusRoute &rhs) const
+{
+    return (
+        routeNumber == rhs.routeNumber 
+        && driver == rhs.driver 
+        && busNumber == rhs.busNumber 
+        && brand == rhs.brand);
+}
+
+bool BusRoute::operator<(const BusRoute &rhs) const
+{
+    return (
+        routeNumber < rhs.routeNumber
+        && driver < rhs.driver
+        && busNumber < rhs.busNumber
+        && brand < rhs.brand);
+}
+
+std::istream& operator>>(std::istream& in, BusRoute& object)
+{
+    in >> object.routeNumber >> object.driver >> object.busNumber >> object.brand; 
+    
+    return in;
+}
+
+std::ostream &operator<<(std::ostream &out, const BusRoute &object)
+{
+    out << "Route number: " << object.routeNumber;
+    out << "\nDriver: " << object.driver;
+    out << "\nBus number: " << object.busNumber;
+    out << "\nBrand: " << object.brand << '\n';
+
+    return out;
 }

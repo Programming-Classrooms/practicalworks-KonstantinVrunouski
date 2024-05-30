@@ -1,0 +1,4 @@
+100 Novitskiy 21 Maz
+100 Bald 22 PlakiPlaki
+123 Leonov 23 Kamaz
+69 Osiptsov 15 RangeRover

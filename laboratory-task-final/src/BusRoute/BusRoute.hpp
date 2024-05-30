@@ -47,6 +47,17 @@ public:
     void setDriver(const std::string& newDriver);
     void setBusNumber(size_t newBusNumber);
     void setBrand(const std::string& newBrand);
+
+    //Операторы сравнения
+    bool operator==(const BusRoute& rhs) const;
+    bool operator<(const BusRoute& rhs) const;
+
+    //Оператор ввода
+    friend std::istream& operator>>(std::istream& in, BusRoute& object);
+
+    //Оператор вывода
+    friend std::ostream& operator<<(std::ostream& out, const BusRoute& object);
+
 };
 
 
