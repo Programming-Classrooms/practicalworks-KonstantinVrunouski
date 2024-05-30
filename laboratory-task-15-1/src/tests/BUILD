@@ -1,10 +1,7 @@
 ## src/tests/BUILD
 
 cc_test(
-    name = "test",
+    name = "tests",
     srcs = ["tests.cpp"],
-    deps = [
-        "@googletest//:gtest_main",
-        "//src/Source:Source",
-    ]
+    deps = ["@googletest//:gtest_main"]
 )
