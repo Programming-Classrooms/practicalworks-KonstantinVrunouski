@@ -1,0 +1,15 @@
+1
+Amsterdam
+Passenger
+00:13
+00:14
+3
+Minsk
+Passenger
+16:00
+00:50
+2
+LA
+Fast
+13:01
+01:13
